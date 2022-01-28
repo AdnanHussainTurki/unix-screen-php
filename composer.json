@@ -1,0 +1,20 @@
+{
+    "name": "adnanhussainturki/unix-screen-php",
+    "description": "Just a wrapper for Unix's screen in PHP",
+    "type": "library",
+    "keywords": ["unix", "screen"],
+    "homepage": "https://www.myphpnotes.com",
+    "require": {
+        "symfony/process": "^5.4"
+    },
+    "autoload": {
+        "psr-4": {
+            "myPHPnotes\\": "src/"
+        }
+    },
+    "license": "MIT",
+    "authors": [{
+        "name": "Adnan Hussain Turki",
+        "email": "adnanhussainturki@gmail.com"
+    }]
+}
