@@ -5,7 +5,8 @@
     "keywords": ["unix", "screen"],
     "homepage": "https://www.myphpnotes.com",
     "require": {
-        "symfony/process": "^5.4"
+        "symfony/process": "^5.4",
+        "nahid/jsonq": "^6.0"
     },
     "autoload": {
         "psr-4": {
