@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+clear
+exitcode=1
+
+__COMMAND__
+
+echo "__EXITCODE:"$exitcode"__"

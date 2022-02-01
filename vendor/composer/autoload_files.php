@@ -6,5 +6,8 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    '6124b4c8570aa390c21fafd04a26c69f' => $vendorDir . '/myclabs/deep-copy/src/DeepCopy/deep_copy.php',
+    '4384ae2b1c411dab75a78e15f1b182ad' => $vendorDir . '/nahid/qarray/helpers/qarray.php',
     'a4a119a56e50fbb293281d9a48007e0e' => $vendorDir . '/symfony/polyfill-php80/bootstrap.php',
+    'fd867582e8863a0158e17d8954f1762f' => $vendorDir . '/nahid/jsonq/helpers/jsonq.php',
 );

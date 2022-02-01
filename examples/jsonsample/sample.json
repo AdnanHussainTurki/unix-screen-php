@@ -1,0 +1,9 @@
+[{
+    "id": 1,
+    "name": "For pulling something off",
+    "shell_file": "storage/something/shell/script1.sh",
+    "timeout": 30,
+    "exit_code": null,
+    "webhook": "",
+    "log_file": "storage/something/logs/log.log"
+}]
