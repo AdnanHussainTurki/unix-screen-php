@@ -4,4 +4,4 @@ exitcode=1
 
 __COMMAND__
 
-echo "__EXITCODE:"$exitcode"__"
+echo "__EXITCODE:"$exitcode"__END"

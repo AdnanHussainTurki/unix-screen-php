@@ -3,4 +3,4 @@ clear
 
 __COMMAND__
 
-echo __EXITCODE:$?__
+echo __EXITCODE:$?__END

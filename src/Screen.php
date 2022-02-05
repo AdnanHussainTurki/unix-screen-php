@@ -3,14 +3,16 @@
 namespace myPHPnotes;
 
 use Exception;
+use myPHPnotes\Helpers\Heartbeat;
 use myPHPnotes\Models\DataStore;
 use Symfony\Component\Process\Exception\ProcessFailedException;
 use Symfony\Component\Process\Process;
+use Illuminate\Database\Eloquent\Model;
 class Screen {
     protected $datastore;
     public $logs_path;
     public $shells_path;
-    public function __construct($screen_path)
+    public function __construct($screen_path, Model $model)
     {
         #TODO: Permission to be set
         #TODO: Make sure the Screen native is installed
@@ -26,7 +28,7 @@ class Screen {
             mkdir($this->shells_path);
         }
         // JSON based data
-        $this->datastore = new DataStore($screen_path . DIRECTORY_SEPARATOR . "screen.json");
+        $this->datastore = new DataStore($model);
     }
 
     public function executeCommand($command,$arguments = [], $identifier = null, $timeout=30)
@@ -45,13 +47,10 @@ class Screen {
         $this->execute($file_path, $arguments,  $identifier, $timeout);
     }
     public function execute($temp_shell_path, $arguments = [], $uniqueId = null,$timeout = 30) {
-        // Add the entry in the data store
-        // Initialize Screen with Log file
-        //    
-        // sudo screen -dmS sessionnam3  -L  -Logfile  rubberman3 bash usercreate.sh
         if (is_null($uniqueId)) {
             $uniqueId = md5(random_bytes(15));
         }
+        $this->datastore->add($uniqueId, $timeout, $temp_shell_path, $arguments, $this->logs_path .DIRECTORY_SEPARATOR.$uniqueId. ".log", );
         $process = new Process(array_merge(['sudo','screen', 
                                     '-dmS', $uniqueId ,
                                     "-L","-Logfile", $this->logs_path .DIRECTORY_SEPARATOR.$uniqueId. ".log",
@@ -84,14 +83,15 @@ class Screen {
         }
         return $filename;
     } 
-
-    public function attach($name)
+    public static function close($screen_name)
     {
         # code...
     }
-
     public function datastore()
     {
         return $this->datastore;
+    }
+    public function heartbeat() {
+        Heartbeat::run($this->datastore());
     }
 }
