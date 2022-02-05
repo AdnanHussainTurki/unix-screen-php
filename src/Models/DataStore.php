@@ -16,11 +16,11 @@ class DataStore {
     }
     public function add($id,$timeout, $temp_shell_path, $arguments, $log_file_path)
     {
-        $this->model->create(['id'=>$id, "timeout" => $timeout, "exitcode" => null, 'data'=>[
+        $this->model->create(['slug'=>$id, "timeout" => $timeout, "exitcode" => null, 'data'=> json_encode([
             "temp_shell_file_path" => $temp_shell_path,
             "temp_log_path" => $log_file_path,
             "arguments" => $arguments
-        ], "closed" => false, "success" => null, "started_at" => date("d-m-Y h:i:s"), "started_at_unix" => time(), "note" => "Started"]);
+        ]), "closed" => false, "success" => null, "started_at" => date("d-m-Y h:i:s"), "started_at_unix" => time(), "note" => "Started"]);
     }
     public function setExitCode(Model $process, int $exitcode)
     {
