@@ -20,7 +20,7 @@ class DataStore {
             "temp_shell_file_path" => $temp_shell_path,
             "temp_log_path" => $log_file_path,
             "arguments" => $arguments
-        ]), "closed" => false, "success" => null, "started_at" => date("d-m-Y h:i:s"), "started_at_unix" => time(), "remark" => "Started"]);
+        ]), "closed" => false, "success" => null, "started_at" => date("Y-m-d h:i:s"), "started_at_unix" => time(), "remark" => "Started"]);
     }
     public function setExitCode(Model $process, int $exitcode)
     {
