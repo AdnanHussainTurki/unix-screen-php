@@ -18,9 +18,9 @@ class Heartbeat {
             
 
         // Checking the exit code of from log file 
-        if (file_exists($process->data->temp_log_path)) {
+        if (file_exists(json_decode($process->data)->temp_log_path)) {
             // If the exit code is there
-            $log_content = file_get_contents($process->data->log_file_path);
+            $log_content = file_get_contents(json_decode($process->data)->log_file_path);
             $subject = str_replace("\r", "", $log_content);
             $matches = preg_grep("/(^__EXIT)(.*?)(__END$)/",explode("\n", $subject));
             if (count($matches) == 1) {
