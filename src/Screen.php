@@ -37,20 +37,20 @@ class Screen {
             $identifier = time()."_".md5(random_bytes(1));
         }
         $file_path = $this->createShell("single", $identifier, $command);
-        $this->execute($file_path, $arguments,  $identifier, $timeout);
+        return $this->execute($file_path, $arguments,  $identifier, $timeout);
     }
     public function executeFile($user_shell_path, $arguments = [], $identifier = null,$timeout = 30) {
         if (is_null($identifier)) {
             $identifier = time()."_".md5(random_bytes(1));
         }
         $file_path = $this->createShell("multiple", $identifier, file_get_contents($user_shell_path));
-        $this->execute($file_path, $arguments,  $identifier, $timeout);
+        return $this->execute($file_path, $arguments,  $identifier, $timeout);
     }
     public function execute($temp_shell_path, $arguments = [], $uniqueId = null,$timeout = 30) {
         if (is_null($uniqueId)) {
             $uniqueId = md5(random_bytes(15));
         }
-        $this->datastore->add($uniqueId, $timeout, $temp_shell_path, $arguments, $this->logs_path .DIRECTORY_SEPARATOR.$uniqueId. ".log", );
+        $model = $this->datastore->add($uniqueId, $timeout, $temp_shell_path, $arguments, $this->logs_path .DIRECTORY_SEPARATOR.$uniqueId. ".log", );
         $process = new Process(array_merge(['sudo','screen', 
                                     '-dmS', $uniqueId ,
                                     "-L","-Logfile", $this->logs_path .DIRECTORY_SEPARATOR.$uniqueId. ".log",
@@ -67,7 +67,7 @@ class Screen {
             throw new ProcessFailedException($process);
         }
 
-        echo $process->getOutput();
+        return $model;
 
     }
     protected function createShell($type,$identifier, $command, $shell = "bash") {
