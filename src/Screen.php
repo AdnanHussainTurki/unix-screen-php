@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 namespace myPHPnotes;
 
@@ -39,6 +39,28 @@ class Screen {
         $file_path = $this->createShell("single", $identifier, $command);
         return $this->execute($file_path, $arguments,  $identifier, $timeout);
     }
+    public function executeCommandNow($command,$arguments = [], $identifier = null, $timeout=30)
+    {
+        $process = $this->executeCommand($command,$arguments, $identifier, $timeout);
+        do {
+            $this->heartbeat($process->slug);
+            $process->refresh();
+            sleep(1);
+        } while($process->closed == false);
+        return $process;
+
+    }
+    public function executeFileNow($user_shell_path, $arguments = [], $identifier = null,$timeout = 30)
+    {
+        $process = $this->executeFile($user_shell_path, $arguments, $identifier,$timeout);
+        do {
+            $this->heartbeat($process->slug);
+            $process->refresh();
+            sleep(1);
+        } while($process->closed == false);
+        return $process;
+
+    }
     public function executeFile($user_shell_path, $arguments = [], $identifier = null,$timeout = 30) {
         if (is_null($identifier)) {
             $identifier = time()."_".md5(random_bytes(1));
@@ -51,10 +73,10 @@ class Screen {
             $uniqueId = md5(random_bytes(15));
         }
         $model = $this->datastore->add($uniqueId, $timeout, $temp_shell_path, $arguments, $this->logs_path .DIRECTORY_SEPARATOR.$uniqueId. ".log", );
-        $process = new Process(array_merge(['sudo','screen', 
+        $process = new Process(array_merge(['sudo','screen',
                                     '-dmS', $uniqueId ,
                                     "-L","-Logfile", $this->logs_path .DIRECTORY_SEPARATOR.$uniqueId. ".log",
-                                    "bash", $temp_shell_path 
+                                    "bash", $temp_shell_path
             ], $arguments));
         $process->setTimeout($timeout);
         // echo $process->getCommandLine();
@@ -70,6 +92,7 @@ class Screen {
         return $model;
 
     }
+
     protected function createShell($type,$identifier, $command, $shell = "bash") {
         $filename = $this->shells_path . DIRECTORY_SEPARATOR . $identifier  . ".sh";
         $template = file_get_contents(__DIR__ . DIRECTORY_SEPARATOR . "templates" . DIRECTORY_SEPARATOR . $type. ".".$shell . ".template");
@@ -82,16 +105,19 @@ class Screen {
             return false;
         }
         return $filename;
-    } 
+    }
     public static function close($screen_name)
     {
-        # code...
+        $process = new Process(['sudo','screen',
+                                    '-X', '-S', $screen_name, "quit"]);
+        $process->setTimeout(5);
+        $process->run();
     }
     public function datastore()
     {
         return $this->datastore;
     }
-    public function heartbeat() {
-        Heartbeat::run($this->datastore());
+    public function heartbeat( $process_id=null) {
+        Heartbeat::run($this->datastore(), $process_id=null);
     }
 }

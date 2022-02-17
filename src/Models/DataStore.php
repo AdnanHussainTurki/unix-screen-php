@@ -16,7 +16,7 @@ class DataStore {
     }
     public function add($id,$timeout, $temp_shell_path, $arguments, $log_file_path)
     {
-        $this->model->create(['slug'=>$id, "timeout" => $timeout, "exitcode" => null, 'data'=> json_encode([
+        return $this->model->create(['slug'=>$id, "timeout" => $timeout, "exitcode" => null, 'data'=> json_encode([
             "temp_shell_file_path" => $temp_shell_path,
             "temp_log_path" => $log_file_path,
             "arguments" => $arguments
@@ -32,13 +32,21 @@ class DataStore {
         $process->success = false;
         $process->save();
     }
+    public function markSuccessful(Model $process)
+    {
+        $process->success = true;
+        $process->save();
+    }
     public function close(Model $process)
     {
         $process->closed = true;
         $process->save();
     }
-    public function open()
+    public function open($process_id = null)
     {
+        if (!is_null($process_id)) {
+            return $this->model->where("closed", false)->where("slug", $process_id)->get();
+        }
         return $this->model->where("closed", false)->get();
     }
 }
