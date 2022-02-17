@@ -73,7 +73,7 @@ class Screen {
             $uniqueId = md5(random_bytes(15));
         }
         $model = $this->datastore->add($uniqueId, $timeout, $temp_shell_path, $arguments, $this->logs_path .DIRECTORY_SEPARATOR.$uniqueId. ".log", );
-        $process = new Process(array_merge(['sudo','screen',
+        $process = new Process(array_merge(['screen',
                                     '-dmS', $uniqueId ,
                                     "-L","-Logfile", $this->logs_path .DIRECTORY_SEPARATOR.$uniqueId. ".log",
                                     "bash", $temp_shell_path
