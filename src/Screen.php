@@ -108,7 +108,7 @@ class Screen {
     }
     public static function close($screen_name)
     {
-        $process = new Process(['sudo','screen',
+        $process = new Process(['screen',
                                     '-X', '-S', $screen_name, "quit"]);
         $process->setTimeout(5);
         $process->run();
