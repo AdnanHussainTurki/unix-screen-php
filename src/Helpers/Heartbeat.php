@@ -60,6 +60,8 @@ class Heartbeat {
                 }
             } else {
                     // dump("Log file does not exist");
+                $datastore->close($process);
+                Screen::close($process->slug);
             }
         }
     }
