@@ -47,6 +47,6 @@ class DataStore {
         if (!is_null($process_id)) {
             return $this->model->where("closed", false)->where("slug", $process_id)->get();
         }
-        return $this->model->where("closed", false)->get();
+        return $this->model->where("closed", false)->where("started_at_unix", "<", time()-3)->get();
     }
 }
