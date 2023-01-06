@@ -7,7 +7,7 @@
     "require": {
         "symfony/process": ">=5.4",
         "nahid/jsonq": "^6.0",
-        "illuminate/database": "^8.82",
+        "illuminate/database": ">=8.82",
         "illuminate/events": "^8.82"
     },
     "autoload": {
