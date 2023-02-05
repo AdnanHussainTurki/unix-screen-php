@@ -196,4 +196,4 @@ Make sure to have your Laravel Task Scheduling correctly setup.
 
 ###  License
 
-Licensed under Apache 2.0. You can check its details [here](https://choosealicense.com/licenses/apache-2.0/ "here").
+Licensed under MIT.
