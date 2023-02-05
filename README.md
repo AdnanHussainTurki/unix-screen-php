@@ -1,11 +1,11 @@
 
 # unix-screen-php
 
-PHP wrapper for Unix Screen
+The right-way to run shell commands or scripts right from the PHP script.
 
   
 
-The package is exlusively designed to be used with Laravel framework, but can also be used with Core PHP along with [Laravel's Eloquent](https://github.com/illuminate/database  "Laravel's Eloquent")
+The package is exlcusively designed to be used with Laravel framework, but can also be used with Core PHP along with [Laravel's Eloquent](https://github.com/illuminate/database  "Laravel's Eloquent")
 
   
   
