@@ -7,7 +7,11 @@ The right-way to run shell commands or scripts right from the PHP script.
 
 The package is exlcusively designed to be used with Laravel framework, but can also be used with Core PHP along with [Laravel's Eloquent](https://github.com/illuminate/database  "Laravel's Eloquent")
 
-  
+
+### Tutorial Playlist
+Click to watch playlist on YouTube:
+
+[![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/zRaXu6pTP6Y/0.jpg)](https://www.youtube.com/playlist?list=PLC-R40l2hJffUVf3DBMqpqLaMQrw8-19M)
   
   
 
